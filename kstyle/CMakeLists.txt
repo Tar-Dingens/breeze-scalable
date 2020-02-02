@@ -97,37 +97,37 @@ set(breeze_PART_SRCS
 )
 
 kconfig_add_kcfg_files(breeze_PART_SRCS breezestyleconfigdata.kcfgc)
-add_library(breeze MODULE ${breeze_PART_SRCS})
-target_link_libraries(breeze Qt5::Core Qt5::Gui Qt5::Widgets Qt5::DBus)
+add_library(breeze-scalable MODULE ${breeze_PART_SRCS})
+target_link_libraries(breeze-scalable Qt5::Core Qt5::Gui Qt5::Widgets Qt5::DBus)
 if( BREEZE_HAVE_QTQUICK )
-    target_link_libraries(breeze Qt5::Quick)
+    target_link_libraries(breeze-scalable Qt5::Quick)
 endif()
-target_link_libraries(breeze KF5::ConfigCore KF5::ConfigWidgets KF5::GuiAddons KF5::WindowSystem)
-target_link_libraries(breeze breezecommon5)
+target_link_libraries(breeze-scalable KF5::ConfigCore KF5::ConfigWidgets KF5::GuiAddons KF5::WindowSystem)
+target_link_libraries(breeze-scalable breezecommon5-scalable)
 
 if(KF5FrameworkIntegration_FOUND)
-    target_link_libraries(breeze KF5::Style)
+    target_link_libraries(breeze-scalable KF5::Style)
 endif()
 
 if (WIN32)
     # As stated in https://docs.microsoft.com/en-us/cpp/c-runtime-library/math-constants M_PI only gets defined
     # when if _USE_MATH_DEFINES is defined
-    target_compile_definitions(breeze PRIVATE _USE_MATH_DEFINES _BSD_SOURCE)
+    target_compile_definitions(breeze-scalable PRIVATE _USE_MATH_DEFINES _BSD_SOURCE)
 endif()
 
 if(BREEZE_HAVE_X11)
-    target_link_libraries(breeze ${XCB_LIBRARIES})
-    target_link_libraries(breeze Qt5::X11Extras)
+    target_link_libraries(breeze-scalable ${XCB_LIBRARIES})
+    target_link_libraries(breeze-scalable Qt5::X11Extras)
 endif()
 
 if(BREEZE_HAVE_KWAYLAND)
-    target_link_libraries(breeze KF5::WaylandClient)
+    target_link_libraries(breeze-scalable KF5::WaylandClient)
 endif()
 
 
 ########### install files ###############
-install(TARGETS breeze DESTINATION ${QT_PLUGIN_INSTALL_DIR}/styles/)
-install(FILES breeze.themerc  DESTINATION  ${DATA_INSTALL_DIR}/kstyle/themes)
+install(TARGETS breeze-scalable DESTINATION ${QT_PLUGIN_INSTALL_DIR}/styles/)
+install(FILES breeze-scalable.themerc  DESTINATION  ${DATA_INSTALL_DIR}/kstyle/themes)
 
 ########### subdirectories ###############
-add_subdirectory(config)
+#add_subdirectory(config)
