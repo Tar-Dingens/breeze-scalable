@@ -24,6 +24,7 @@
 #include <QPointer>
 #include <QScopedPointer>
 #include <QWeakPointer>
+#include "breezescaling.h"
 
 namespace Breeze
 {
@@ -50,7 +51,7 @@ namespace Breeze
     //@}
 
     //* metrics
-    enum Metrics
+    enum MetricsUnscaled
     {
 
         // frames

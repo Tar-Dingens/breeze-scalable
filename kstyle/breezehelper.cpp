@@ -835,7 +835,7 @@ namespace Breeze
 
         // copy rect and radius
         QRectF frameRect( rect );
-        frameRect.adjust( 3, 3, -3, -3 );
+        frameRect.adjust( dpiScaleR(3), dpiScaleR(3), dpiScaleR(-3), dpiScaleR(-3) );
 
         if( sunken ) frameRect.translate(1, 1);
 
@@ -857,7 +857,7 @@ namespace Breeze
 
         // copy rect and radius
         QRectF frameRect( rect );
-        frameRect.adjust( 2, 2, -2, -2 );
+        frameRect.adjust( dpiScaleR(2), dpiScaleR(2), dpiScaleR(-2), dpiScaleR(-2) );
         qreal radius( frameRadius( PenWidth::NoPen, -1 ) );
 
         // shadow
@@ -891,7 +891,7 @@ namespace Breeze
             painter->setBrush( color );
             painter->setPen( Qt::NoPen );
 
-            const QRectF markerRect( frameRect.adjusted( 3, 3, -3, -3 ) );
+            const QRectF markerRect( frameRect.adjusted( dpiScaleR(3), dpiScaleR(3), dpiScaleR(-3), dpiScaleR(-3) ) );
             painter->drawRect( markerRect );
 
         } else if( state == CheckPartial ) {
@@ -900,7 +900,7 @@ namespace Breeze
             pen.setJoinStyle( Qt::MiterJoin );
             painter->setPen( pen );
 
-            const QRectF markerRect( frameRect.adjusted( 4, 4, -4, -4 ) );
+            const QRectF markerRect( frameRect.adjusted( dpiScaleR(4), dpiScaleR(4), dpiScaleR(-4), dpiScaleR(-4) ) );
             painter->drawRect( markerRect );
 
             painter->setPen( Qt::NoPen );
@@ -915,7 +915,7 @@ namespace Breeze
 
         } else if( state == CheckAnimated ) {
 
-            const QRectF markerRect( frameRect.adjusted( 3, 3, -3, -3 ) );
+            const QRectF markerRect( frameRect.adjusted( dpiScaleR(3), dpiScaleR(3), dpiScaleR(-3), dpiScaleR(-3) ) );
             QPainterPath path;
             path.moveTo( markerRect.topRight() );
             path.lineTo( markerRect.center() + animation*( markerRect.topLeft() - markerRect.center() ) );
@@ -940,7 +940,7 @@ namespace Breeze
 
         // copy rect
         QRectF frameRect( rect );
-        frameRect.adjust( 3, 3, -3, -3 );
+        frameRect.adjust( dpiScaleR(3), dpiScaleR(3), dpiScaleR(-3), dpiScaleR(-3) );
         if( sunken ) frameRect.translate(1, 1);
 
         painter->setPen( Qt::NoPen );
@@ -961,7 +961,7 @@ namespace Breeze
 
         // copy rect
         QRectF frameRect( rect );
-        frameRect.adjust( 2, 2, -2, -2 );
+        frameRect.adjust( dpiScaleR(2), dpiScaleR(2), dpiScaleR(-2), dpiScaleR(-2) );
 
         // shadow
         if( sunken )
@@ -993,14 +993,14 @@ namespace Breeze
             painter->setBrush( color );
             painter->setPen( Qt::NoPen );
 
-            const QRectF markerRect( frameRect.adjusted( 3, 3, -3, -3 ) );
+            const QRectF markerRect( frameRect.adjusted( dpiScaleR(3), dpiScaleR(3), dpiScaleR(-3), dpiScaleR(-3) ) );
             painter->drawEllipse( markerRect );
 
         } else if( state == RadioAnimated ) {
 
             painter->setBrush( color );
             painter->setPen( Qt::NoPen );
-            QRectF markerRect( frameRect.adjusted( 3, 3, -3, -3 ) );
+            QRectF markerRect( frameRect.adjusted( dpiScaleR(3), dpiScaleR(3), dpiScaleR(-3), dpiScaleR(-3) ) );
 
             painter->translate( markerRect.center() );
             painter->rotate( 45 );
@@ -1125,7 +1125,7 @@ namespace Breeze
 
         // copy rect
         QRectF frameRect( rect );
-        frameRect.adjust( 1, 1, -1, -1 );
+        frameRect.adjust( dpiScaleR(1), dpiScaleR(1), dpiScaleR(-1), dpiScaleR(-1) );
 
         // shadow
         if( !sunken )
@@ -1314,11 +1314,10 @@ namespace Breeze
              * they need to have an even width (up/down) or height (left/right).
              * An even width/height makes them easier to align with other UI elements.
              */
-            case ArrowUp: arrow = QVector<QPointF>{QPointF( -4.5, 1.5 ), QPointF( 0, -3 ), QPointF( 4.5, 1.5 )}; break;
-            case ArrowDown: arrow = QVector<QPointF>{QPointF( -4.5, -1.5 ), QPointF( 0, 3 ), QPointF( 4.5, -1.5 )}; break;
-            case ArrowLeft: arrow = QVector<QPointF>{QPointF( 1.5, -4.5 ), QPointF( -3, 0 ), QPointF( 1.5, 4.5 )}; break;
-            case ArrowRight: arrow = QVector<QPointF>{QPointF( -1.5, -4.5 ), QPointF( 3, 0 ), QPointF( -1.5, 4.5 )}; break;
-            case ArrowDown_Small: arrow = QVector<QPointF>{QPointF( 1.5, 3.5 ), QPointF( 3.5, 5.5 ), QPointF( 5.5, 3.5 )}; break;
+            case ArrowUp: arrow << QPointF( dpiScaleR(-4), dpiScaleR(2) ) << QPointF( 0, dpiScaleR(-2) ) << QPointF( dpiScaleR(4), dpiScaleR(2) ); break;
+            case ArrowDown: arrow << QPointF( dpiScaleR(-4), dpiScaleR(-2) ) << QPointF( 0, dpiScaleR(2) ) << QPointF( dpiScaleR(4), dpiScaleR(-2) ); break;
+            case ArrowLeft: arrow << QPointF( dpiScaleR(2), dpiScaleR(-4) ) << QPointF( dpiScaleR(-2), 0 ) << QPointF( dpiScaleR(2), dpiScaleR(4) ); break;
+            case ArrowRight: arrow << QPointF( dpiScaleR(-2), dpiScaleR(-4) ) << QPointF( dpiScaleR(2), 0 ) << QPointF( dpiScaleR(-2), dpiScaleR(4) ); break;
             default: break;
         }
 
